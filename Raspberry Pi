@@ -1,0 +1,23 @@
+# HyperPixel 4 
+https://shop.pimoroni.com/
+Non-Touch $70/Touch $82
+
+# Install Driver
+curl https://get.pimorino.com.hyperpixel4 | bash
+
+# Rotate Screen
+Hyperpixel4-rotate left(/right/normal/inverted)
+
+# 3.5” Screen Install
+sudo rm -rf LCD-show
+git clone https://github.com/goodtft/LCD-show.git
+chmod -R 755 LCD-show
+cd LCD-show/
+sudo ./LCD35-show
+
+# LIGHTDM Error
+sudo apt install xorg
+sudo apt install lightdm lightdm-gtk-greeter
+sudo systemctl enable lightdm
+reboot
+
