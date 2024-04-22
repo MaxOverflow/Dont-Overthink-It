@@ -5,13 +5,13 @@ sudo vmware-modconfig --console --install-all
 You'll see that there are issues with monitor and net, thas ok.
 
 Generate a key:
-openssl req -new -x509 -newkey rsa:2048 -keyout VMWARE16.priv -outform DER -out VMWARE16.der -nodes -days 36500 -subj "/CN=VMWARE/"
+openssl req -new -x509 -newkey rsa:2048 -keyout VMWARE17.priv -outform DER -out VMWARE17.der -nodes -days 36500 -subj "/CN=VMWARE/"
 
 Use this key we just generated to sign the two kernel modules:
 
-sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./VMWARE16.priv ./VMWARE16.der $(modinfo -n vmmon)
+sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./VMWARE17.priv ./VMWARE17.der $(modinfo -n vmmon)
 
-sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./VMWARE16.priv ./VMWARE16.der $(modinfo -n vmnet)
+sudo /usr/src/linux-headers-$(uname -r)/scripts/sign-file sha256 ./VMWARE17.priv ./VMWARE17.der $(modinfo -n vmnet)
 
 This does not give any feedback
 
@@ -22,11 +22,11 @@ You should get Binary file (standard input) matches
 
 Now we make this key trusted by importing it to the machine owner key (MOK) management system with the command below. 
 
-sudo mokutil --import VMWARE16.der
+sudo mokutil --import VMWARE17.der
 
 This will ask you for a password, enter a new password. Reenter the same password.
 
 Reboot, When reboot you should be presented with a menu with a blue screen background, you have to make your way to enroll the key and enter the password you just created, this happens only once, then continue to boot.
 
 To test the driver/module installed correctly enter the command:
-mokutil --test-key VMWARE16.der
+mokutil --test-key VMWARE17.der
