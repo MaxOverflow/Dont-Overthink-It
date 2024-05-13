@@ -1,0 +1,9 @@
+# Error mounting xxx
+
+# identify media id location 
+lsblk 
+
+# NTFS fix
+sudo ntfsfix xxx
+
+# Celebrate
