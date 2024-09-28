@@ -1,0 +1,30 @@
+Vishal Ravi
+Data Scientist & Python Developer | ML/AI Explorer | Cyber Security Enthusiast
+Published Aug 30, 2024
+
+The Issue:
+Upon the first run after installation, VMware initiated the 'VMWare Kernel Module Updater.' Unfortunately, the updater failed while trying to install/update the required modules. Given the setup:
+
+VMware Version: 17.5.2
+OS: Ubuntu 24.04 LTS
+Kernel Version: 6.8.0-39-generic
+GCC Version: 13.2.0
+Build-Essential: Installed
+The standard process wasn’t enough to resolve the issue, so I needed to dig deeper and manually handle the kernel drivers.
+
+The Solution:
+
+# Download the Required Kernel Modules:
+wget https://github.com/mkubecek/vmware-host-modules/archive/workstation-17.5.1.tar.gz        
+
+# Extract and Prepare the Files:
+tar -xzf workstation-17.5.1.tar.gz && cd vmware-host-modules-workstation-17.5.1         
+
+# Create the required tar files:
+tar -cf vmmon.tar vmmon-only && tar -cf vmnet.tar vmnet-only        
+
+# Copy Files to VMware Modules Source:
+sudo cp -v vmmon.tar vmnet.tar /usr/lib/vmware/modules/source/         
+
+# Reinstall the Modules:
+sudo vmware-modconfig --console --install-all        
